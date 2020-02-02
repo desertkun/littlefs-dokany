@@ -1,0 +1,6 @@
+[submodule "littlefs"]
+	path = littlefs
+	url = https://github.com/ARMmbed/littlefs.git
+[submodule "dokany"]
+	path = dokany
+	url = https://github.com/dokan-dev/dokany.git
