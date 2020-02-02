@@ -9,7 +9,7 @@ Similar to [littlefs-fuse](https://github.com/ARMmbed/littlefs-fuse) but for Win
 Example:
 `littlefs_dokany.exe K:\ E:`
 
-This will mount a new device `K:` using existing device (e.g. an SD card) as block storage.
+This will mount a new device `K:` using existing device (`E:`, e.g. an SD card) as block storage.
 
 * `<mount point>` A folder to mount the filesystem to. Can be a new drive or existing folder (`C:/...`)
 * `<block device>` block storage for the filesystem. Can be either drive letter (`E:`) 
