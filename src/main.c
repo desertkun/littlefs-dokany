@@ -15,6 +15,7 @@ int __cdecl wmain(ULONG argc, PWCHAR argv[])
     LPCWSTR media = NULL;
     uint32_t unit_size = 512;
     uint32_t block_size = 8192;
+    uint8_t format = 0;
 
     for (ULONG i = 1; i < argc; i++)
     {
@@ -31,6 +32,10 @@ int __cdecl wmain(ULONG argc, PWCHAR argv[])
         else if (wcscmp(arg, L"--uint-size") == 0)
         {
             unit_size = _wtoi(argv[++i]);
+        }
+        else if (wcscmp(arg, L"--format") == 0)
+        {
+            format = 1;
         }
         else
         {
@@ -55,6 +60,7 @@ int __cdecl wmain(ULONG argc, PWCHAR argv[])
     if (mount_point == NULL || media == NULL)
     {
         fprintf(stderr, "Usage: <mount point> <media>\n");
+        fprintf(stderr, "   e.g. F: PhysicalDrive2\n");
         return 1;
     }
 
@@ -97,7 +103,7 @@ int __cdecl wmain(ULONG argc, PWCHAR argv[])
         return 5;
     }
 
-    uint32_t block_count = length_information.Length.QuadPart / unit_size;
+    uint32_t block_count = length_information.Length.QuadPart / block_size;
 
     lfs_t lfs;
 
@@ -125,9 +131,9 @@ int __cdecl wmain(ULONG argc, PWCHAR argv[])
         // block_count
         block_count,
         // block_cycles
-        512,
+        1000,
         // cache_size
-        unit_size * 16,
+        unit_size,
         // lookahead_size
         128,
         // read_buffer
@@ -143,6 +149,16 @@ int __cdecl wmain(ULONG argc, PWCHAR argv[])
         // attr_max
         0
     };
+
+    if (format)
+    {
+        int lfs_format_result = lfs_format(&lfs, &lfs_config);
+        if (lfs_format_result != LFS_ERR_OK)
+        {
+            fprintf(stderr, "Failed to format littlefs\n");
+            return lfs_format_result;
+        }
+    }
 
     int lfs_mount_result = lfs_mount(&lfs, &lfs_config);
     if (lfs_mount_result != LFS_ERR_OK)

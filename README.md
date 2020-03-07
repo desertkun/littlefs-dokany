@@ -7,13 +7,14 @@ Similar to [littlefs-fuse](https://github.com/ARMmbed/littlefs-fuse) but for Win
 `littlefs_dokany.exe <mount point> <block device>`
 
 Example:
-`littlefs_dokany.exe K:\ E:`
+`littlefs_dokany.exe K: PhysicalDrive2`
 
-This will mount a new device `K:` using existing device (`E:`, e.g. an SD card) as block storage.
+This will mount a new device `K:` using existing device (`PhysicalDrive2`, e.g. an SD card) as block storage.
+To obtain a list of physical drives, you might want to use `wmic diskdrive list brief`
 
 * `<mount point>` A folder to mount the filesystem to. Can be a new drive or existing folder (`C:/...`)
 * `<block device>` block storage for the filesystem. Can be either drive letter (`E:`) 
-  or `PhysicalDriveN` (you can see your devices using `wmic diskdrive list brief`)
+  or `PhysicalDriveN`. Beware that using `E:` notation will write at *partition* and no at the physical drive.
 * `-d` Enable debug mode
 * `--block-size <size>` Specify block size (default 8192)
 * `--unit-size <size>` Specify read/prog size (default 512)
