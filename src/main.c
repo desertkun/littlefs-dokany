@@ -29,7 +29,7 @@ int __cdecl wmain(ULONG argc, PWCHAR argv[])
         {
             block_size = _wtoi(argv[++i]);
         }
-        else if (wcscmp(arg, L"--uint-size") == 0)
+        else if (wcscmp(arg, L"--unit-size") == 0)
         {
             unit_size = _wtoi(argv[++i]);
         }
