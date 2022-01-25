@@ -163,7 +163,7 @@ int __cdecl wmain(ULONG argc, PWCHAR argv[])
     int lfs_mount_result = lfs_mount(&lfs, &lfs_config);
     if (lfs_mount_result != LFS_ERR_OK)
     {
-        fprintf(stderr, "Failed to mount littlefs\n");
+        fprintf(stderr, "Failed to mount littlefs %d\n", lfs_mount_result);
         return lfs_mount_result;
     }
 
