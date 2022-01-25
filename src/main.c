@@ -29,7 +29,7 @@ int __cdecl wmain(ULONG argc, PWCHAR argv[])
         {
             block_size = _wtoi(argv[++i]);
         }
-        else if (wcscmp(arg, L"--uint-size") == 0)
+        else if (wcscmp(arg, L"--unit-size") == 0)
         {
             unit_size = _wtoi(argv[++i]);
         }
@@ -163,7 +163,7 @@ int __cdecl wmain(ULONG argc, PWCHAR argv[])
     int lfs_mount_result = lfs_mount(&lfs, &lfs_config);
     if (lfs_mount_result != LFS_ERR_OK)
     {
-        fprintf(stderr, "Failed to mount littlefs\n");
+        fprintf(stderr, "Failed to mount littlefs %d\n", lfs_mount_result);
         return lfs_mount_result;
     }
 
